@@ -1,0 +1,13 @@
+.git
+.github
+tests
+phpunit.xml
+.env
+.env.backup
+.env.production
+.idea
+.vscode
+.zed
+node_modules
+Homestead.json
+Homestead.yaml
