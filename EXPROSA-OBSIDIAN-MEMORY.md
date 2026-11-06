@@ -952,3 +952,32 @@ updated: 2026-11-06
   - `demo-industrial-manufacturing/resources/views/pages/portfolio.blade.php`
   - `demo-industrial-manufacturing/resources/views/pages/about.blade.php`
 - **Langkah berikutnya**: Verifikasi build Vite, pengujian PHPUnit, sinkronisasi GitHub, dan pelaporan ke user.
+
+
+### 2026-11-07 — Deployment Produksi Live ke Vercel Sektor 05 (PT Presisi Metalindo Teknik)
+- **Status**: final
+- **Area**: devops | vercel | deployment | serverless | production | sector
+- **Keputusan**:
+  1. **Pembuatan Proyek & Koneksi GitHub di Vercel**:
+     - Membuat proyek Vercel `demoverindustrial-manufacturing` (`prj_iCXSfe2IITDZyNRYi6v9WcqjhKLG`) pada akun `nimosasuga` (`team_XYgy9f1PQXeCRaJKsf4F583b`) yang terhubung langsung ke repositori GitHub `nimosasuga/demoverindustrial-manufacturing`.
+     - Menyimpan konfigurasi project linking lokal di `.vercel/project.json` dan mengamankannya di `.gitignore`.
+  2. **Konfigurasi Serverless PHP & Pre-Seeded SQLite**:
+     - `vercel.json`: Runtime `vercel-php@0.7.2`, `outputDirectory: "public"`, routing aset `/build/*`, dan variabel lingkungan identitas **PT Presisi Metalindo Teknik** (`+62 851-3333-1476` & `+62 851-3333-1467`).
+     - `api/index.php` & `bootstrap/app.php`: Mengarahkan `storage_path` ke `/tmp/storage`, menyalin `database/database.sqlite` ke `/tmp/database.sqlite` saat cold start, serta mengaktifkan `trustProxies(at: '*')` dan `URL::forceScheme('https')` di `AppServiceProvider.php`.
+  3. **Verifikasi Deployment Produksi Live (100% HTTP 200 OK)**:
+     - Deployment ID: `dpl_8QfZmJaYD33Ht6ut8TSbwHeA3GTa` (`READY`).
+     - Production URL: `https://demoverindustrial-manufacturing.vercel.app`
+     - Seluruh 11 endpoint utama (`/`, `/produk`, `/produk/impeller-turbin-kompresor-5-axis`, `/fasilitas-mesin`, `/alur-kerja`, `/portofolio`, `/tentang`, `/unduh-katalog`, `/request-quote`, `/kontak`, `/build/manifest.json`) dan aset Vite HTTPS (`app-9mu51BkQ.css`) terverifikasi `HTTP 200 OK`.
+- **Alasan**: Memenuhi instruksi user: "selanjutnya deploy ke /vercel-cli".
+- **Dampak**: Website Sektor 05 (Industrial & Manufacturing — PT Presisi Metalindo Teknik) beserta desain baru dan 7 efek scrolling kini aktif secara live di jaringan edge global Vercel.
+- **File/dokumen yang diperbarui**:
+  - `EXPROSA-OBSIDIAN-MEMORY.md`
+  - `demo-industrial-manufacturing/vercel.json`
+  - `demo-industrial-manufacturing/api/index.php`
+  - `demo-industrial-manufacturing/bootstrap/app.php`
+  - `demo-industrial-manufacturing/app/Providers/AppServiceProvider.php`
+  - `demo-industrial-manufacturing/.vercelignore`
+  - `demo-industrial-manufacturing/.gitignore`
+  - `demo-industrial-manufacturing/database/database.sqlite`
+  - `demo-industrial-manufacturing/package.json`
+- **Langkah berikutnya**: Melaporkan URL live produksi dan hasil verifikasi kepada user dalam gaya Caveman.
