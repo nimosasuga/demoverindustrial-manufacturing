@@ -10,11 +10,19 @@
 - **Wajib Catat Keputusan**: Setiap kali ada keputusan arsitektur, pemilihan paket sektor, perubahan skema/stack, atau progres teknis selesai, catat ke section `Log Memori & Riwayat Keputusan` di file Obsidian dengan template standar.
 - **Verifikasi Fisik**: Jangan pernah mengklaim memori tersimpan sebelum file benar-benar ditulis ke disk.
 
-## 3. STRICT UI/UX DESIGN RULES, MANDATORY HALLMARK & UI/UX PROMAX MOTION SKILLS (ANTI-AI SLOP) - ATURAN MUTLAK
+## 3. STRICT UI/UX DESIGN RULES, MANDATORY HALLMARK, UI/UX PROMAX MOTION & 21ST.DEV CLI SKILLS (ANTI-AI SLOP) - ATURAN MUTLAK
 
-### A. MANDATORY HALLMARK & UI/UX PROMAX MOTION ENFORCEMENT:
-1. **Wajib di Seluruh Sesi**: Seluruh sesi chat (baik yang sudah ada maupun baru) di workspace ini WAJIB memuat dan mematuhi skill Hallmark (`.agent/skills/hallmark/SKILL.md`) dan skill UI/UX ProMax Motion (`.agent/skills/ui-ux-promax-motion/SKILL.md`).
-2. **The Floor (16 Aturan Mutlak Hallmark)**:
+### A. MANDATORY HALLMARK, UI/UX PROMAX MOTION & 21ST.DEV CLI ENFORCEMENT:
+1. **Wajib di Seluruh Sesi**: Seluruh sesi chat (baik yang sudah ada maupun baru) di workspace ini WAJIB memuat dan mematuhi:
+   - Skill **Hallmark** (`.agent/skills/hallmark/SKILL.md`)
+   - Skill **UI/UX ProMax Motion** (`.agent/skills/ui-ux-promax-motion/SKILL.md`)
+   - Skill **21st.dev CLI** (`.agent/skills/21st-dev-cli/SKILL.md` / global `@21st-dev/cli`)
+2. **21st.dev CLI (`@21st-dev/cli`) Integration**:
+   - Paket global terinstal: `npm i -g @21st-dev/cli` (`21st`).
+   - Autentikasi lokal & CI/scripts: Gunakan `21st <command> --api-key $env:API_KEY_21ST` (PowerShell) atau variabel environment `API_KEY_21ST` / `TWENTYFIRST_TOKEN` yang telah disetel di level User Environment & `.env` lokal.
+   - Perintah utama: `21st search <query>`, `21st get <id>`, `21st theme <id>`, `21st logo <query>`, `21st review <path>`, `21st init --design-context`.
+   - Setiap komponen/tema dari 21st.dev wajib diadaptasikan ke **Laravel Blade + Alpine.js + Tailwind CSS v4** dengan mematuhi 16 aturan *The Floor* Hallmark.
+3. **The Floor (16 Aturan Mutlak Hallmark)**:
    - Setiap warna dan font dideklarasikan via token di `:root` / token block. Dilarang literal color / font-family acak.
    - Dilarang `transition: all`. Dilarang animasi pada `width`, `height`, `top`, `left`.
    - Dilarang 1 kata miring (italic) di dalam heading roman.
@@ -31,7 +39,7 @@
    - Container capped & centered: pada 1920px gutters melebar, ukuran measure dan grid tetap terkontrol.
    - Baris pertama CSS non-kosong memuat stamp Hallmark / critique line.
    - Jalankan audit lint / sloplint (`node .agent/skills/hallmark/scripts/sloplint.mjs`) jika diperlukan verifikasi DOM.
-3. **UI/UX ProMax, Framer Motion Physics, Scroll Choreography, Particles & Relevant Blur**:
+4. **UI/UX ProMax, Framer Motion Physics, Scroll Choreography, Particles & Relevant Blur**:
    - **Framer Motion Easing & Physics**: Gunakan kurva spring/expo (`--ease-framer-out: cubic-bezier(0.16, 1, 0.3, 1)`, `--ease-framer-spring: cubic-bezier(0.22, 1, 0.36, 1)`), 3D Lerp tilt (`data-tilt-3d`), dan magnetic controls (`data-magnetic`).
    - **Scroll Animation & Section/Image Reveal**: Integrasi GSAP + ScrollTrigger + Lenis smooth scroll untuk stagger section reveal (`data-reveal="stagger"`), image scale-and-focus reveal (`data-reveal="image"`), dan parallax depth (`data-parallax`). Wajib fail-safe (`opacity: 1` jika tanpa JS).
    - **Adaptive Particle System**: Canvas partikel kontekstual per sektor (`#hero-particle-canvas`) dengan `IntersectionObserver` dan `visibilitychange` auto-pause.

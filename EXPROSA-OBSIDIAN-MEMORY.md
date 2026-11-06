@@ -871,3 +871,51 @@ updated: 2026-11-06
   - `demo-industrial-manufacturing/resources/views/pages/*`
   - `demo-industrial-manufacturing/tests/Feature/IndustrialDemoTest.php`
 - **Langkah berikutnya**: Verifikasi hasil build Vite & PHPUnit test suite serta pelaporan ke user.
+
+### 2026-11-07 — Inisialisasi Git & Publikasi Repositori GitHub Sektor 05 (PT Presisi Metalindo Teknik)
+- **Status**: final
+- **Area**: git | vcs | github | deployment | sector
+- **Keputusan**:
+  1. **Inisialisasi Git Repositori**:
+     - Menginisialisasi repositori Git lokal di `c:\laragon\www\web-2026-6-sektor\demo-industrial-manufacturing` pada branch utama `main`.
+     - Menghubungkan remote `origin` ke `https://github.com/nimosasuga/demoverindustrial-manufacturing.git`.
+  2. **Proteksi File & Dokumentasi**:
+     - Memastikan `.env`, kredensial database, `vendor/`, `node_modules/`, dan `.phpunit.result.cache` terlindungi di dalam `.gitignore`.
+     - Menyusun dokumentasi lengkap di [README.md](file:///c:/laragon/www/web-2026-6-sektor/demo-industrial-manufacturing/README.md) dan variabel contoh di [.env.example](file:///c:/laragon/www/web-2026-6-sektor/demo-industrial-manufacturing/.env.example).
+  3. **Commit & Push ke GitHub**:
+     - Commit `1b289b9` (`feat(sector-05): initialize PT Presisi Metalindo Teknik industrial manufacturing website`, 285 files) berhasil di-push ke `origin/main` (`https://github.com/nimosasuga/demoverindustrial-manufacturing.git`).
+- **Alasan**: Memenuhi instruksi user: "koneksikan ke github https://github.com/nimosasuga/demoverindustrial-manufacturing.git".
+- **Dampak**: Source code Sektor 05 (Industrial & Manufacturing) kini tersimpan dan terhubung langsung ke repositori GitHub resmi, siap untuk kolaborasi dan CI/CD deployment.
+- **File/dokumen yang diperbarui**:
+  - `EXPROSA-OBSIDIAN-MEMORY.md`
+  - `demo-industrial-manufacturing/README.md`
+  - `demo-industrial-manufacturing/.gitignore`
+  - `demo-industrial-manufacturing/.env.example`
+- **Langkah berikutnya**: Melaporkan status koneksi GitHub kepada user dalam gaya Caveman.
+
+
+### 2026-11-07 — Instalasi Global, Konfigurasi Autentikasi & Integrasi Wajib 21st.dev CLI (`@21st-dev/cli`) di Seluruh Sesi EXPROSA
+- **Status**: final
+- **Area**: UI | frontend | cli | skills | auth | ci-cd | standards
+- **Keputusan**:
+  1. **Instalasi Global `@21st-dev/cli`**:
+     - Menjalankan `npm i -g @21st-dev/cli` (`C:\Users\kanak\AppData\Roaming\npm\21st.cmd`).
+  2. **Konfigurasi Autentikasi Lokal & Environment CI/Scripts**:
+     - Menyimpan kredensial lokal `21st login` di `~/.config/21st/auth.json` (`C:\Users\kanak\.config\21st\auth.json`) sehingga perintah `21st whoami`, `21st search`, `21st inspect`, `21st usage`, dan `21st add` berjalan langsung tanpa argumen tambahan.
+     - Mengatur variabel environment permanen tingkat Windows User (`API_KEY_21ST` dan `TWENTYFIRST_TOKEN`) serta menyimpannya ke file `.env` lokal (gitignored) untuk mendukung eksekusi CI/scripts non-interaktif (`21st <cmd> --api-key $API_KEY_21ST`).
+  3. **Instalasi & Sinkronisasi Paket Skill `21st-*` di Seluruh Sesi (Lama & Baru)**:
+     - Menginstal bundel skill resmi `21st skills install --global` (`21st-ai`, `21st-cli-use`, `21st-design-sync`, `21st-registry`, `21st-ui-build`, `21st-ui-explore`, `21st-ui-review`, `21st-video`) serta skill integrasi khusus EXPROSA `21st-dev-cli`.
+     - Menyalin seluruh skill `21st-*` ke direktori global `~/.gemini/config/skills/` dan seluruh direktori workspace `.agent/skills/` (`EXPROSA_PRD_SPLIT_v1`, `demo-industrial-manufacturing`, `demo-restaurant-food`, `demo-coffee-shop-roastery`).
+     - Menginisialisasi Design Context (`21st init --design-context`) menghasilkan `.21st/design.json` dan `.21st/DESIGN.md`.
+  4. **Penegakan Aturan di `AGENTS.md` & `GEMINI.md`**:
+     - Memperbarui [AGENTS.md](file:///c:/laragon/www/web-2026-6-sektor/EXPROSA_PRD_SPLIT_v1/AGENTS.md) dan [GEMINI.md](file:///c:/laragon/www/web-2026-6-sektor/EXPROSA_PRD_SPLIT_v1/GEMINI.md) agar seluruh sesi chat baru maupun lama wajib mengaktifkan `21st-dev-cli` bersama `hallmark` (*The Floor*) dan `ui-ux-promax-motion`.
+- **Alasan**: Memenuhi instruksi user: "UNTUK FOLDER PROJECT EXPROSA_PRD INI SEMUA SESI CHAT BARU MAUPUN LAMA INSTALL KONEKSIKAN KE Set up the 21st.dev CLI in this project".
+- **Dampak**: Seluruh sesi di ekosistem EXPROSA kini terhubung dengan `@21st-dev/cli` baik secara interaktif lokal (`auth.json`) maupun mode CI/scripts (`--api-key $API_KEY_21ST`), dengan filter kepatuhan mutlak terhadap Hallmark Anti-AI-Slop.
+- **File/dokumen yang diperbarui**:
+  - `EXPROSA-OBSIDIAN-MEMORY.md`
+  - `AGENTS.md`
+  - `GEMINI.md`
+  - `.21st/design.json` & `.21st/DESIGN.md`
+  - `.agent/skills/21st-dev-cli/SKILL.md` (beserta `21st-ai`, `21st-cli-use`, `21st-design-sync`, `21st-registry`, `21st-ui-build`, `21st-ui-explore`, `21st-ui-review`, `21st-video`)
+  - `~/.config/21st/auth.json`
+- **Langkah berikutnya**: Sinkronisasi perubahan ke repositori GitHub `demo-industrial-manufacturing` dan melaporkan status kepada user dalam gaya Caveman.
