@@ -1,0 +1,423 @@
+/* Hallmark · v2.0.0 · theme: custom · idea: "Swiss precision CNC metrology datasheet with interactive 3D CAD component stage" · vibe: "anodized steel, brushed brass, micron blueprint" · posture: dark/grotesk-heavy/warm · axes: dark/grotesk-heavy/warm · hero: Stage · nav: edge-aligned technical bar · footer: blueprint specification mast · job: enquire (RFQ) */
+/* Hallmark · pre-emit critique: P5 H5 E5 S5 R5 V5 · cut decorative badges and multi-color headings to keep austere Swiss technical precision */
+/* Hallmark · waive 64 · technical SKU codes, micron tolerances (±0.005 mm), and machine axis coordinates use --font-mono · precision manufacturing specifications require tabular monospace alignment */
+
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+:root {
+    /* Hallmark Color Tokens — Swiss Technical & Industrial Editorial */
+    --color-canvas: #121316;
+    --color-surface: #181a1f;
+    --color-surface-elevated: #20232a;
+    --color-surface-glass: rgba(18, 19, 22, 0.84);
+    --color-surface-modal: rgba(24, 26, 31, 0.92);
+    --color-ink: #f4f1ea;
+    --color-ink-secondary: #c8c4bc;
+    --color-ink-muted: #9499a6;
+    --color-accent: #c5a059;
+    --color-accent-hover: #d4b26f;
+    --color-accent-subtle: rgba(197, 160, 89, 0.14);
+    --color-accent-ink: #121316;
+    --color-hairline: rgba(244, 241, 234, 0.09);
+    --color-hairline-strong: rgba(197, 160, 89, 0.35);
+    --color-status-ok: #4d9e6d;
+    --color-danger: #d9534f;
+
+    /* Typography Tokens */
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-sans: 'Plus Jakarta Sans', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+
+    /* Framer Motion Physics & Easing Tokens */
+    --ease-framer-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-framer-spring: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+
+    /* Optical & Relevant Blur Tokens */
+    --blur-hud: 14px;
+    --blur-modal: 12px;
+    --blur-card: 8px;
+
+    /* Layout & Spacing Scale */
+    --container-max: 1440px;
+    --banner-height: 4.5rem;
+}
+
+@layer base {
+    html,
+    body {
+        overflow-x: clip;
+        width: 100%;
+        background-color: var(--color-canvas);
+        color: var(--color-ink);
+        font-family: var(--font-sans);
+        font-size: 16px;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        caret-color: var(--color-accent);
+        scrollbar-color: var(--color-accent) var(--color-canvas);
+    }
+
+    ::selection {
+        background-color: var(--color-accent);
+        color: var(--color-accent-ink);
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    .font-display {
+        font-family: var(--font-display);
+        color: var(--color-ink);
+        overflow-wrap: break-word;
+        min-width: 0;
+        text-wrap: balance;
+    }
+
+    p {
+        text-wrap: pretty;
+    }
+
+    .font-mono,
+    .tabular-nums {
+        font-family: var(--font-mono);
+        font-variant-numeric: tabular-nums;
+    }
+
+    /* Instant Accessible Focus Ring (Hallmark Gate 15 & 26a) */
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible,
+    [tabindex]:focus-visible {
+        outline: 2px solid var(--color-accent);
+        outline-offset: 2px;
+        transition: none;
+    }
+}
+
+/* Container Capped & Centered (Hallmark Gate 44d) */
+.swiss-container {
+    width: 100%;
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 4vw, 4rem);
+}
+
+/* Swiss Technical Hairline Grid Utilities */
+.hairline-border {
+    border-color: var(--color-hairline);
+}
+
+.blueprint-grid-bg {
+    background-image:
+        linear-gradient(to right, var(--color-hairline) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--color-hairline) 1px, transparent 1px);
+    background-size: 48px 48px;
+}
+
+/* Relevant Optical Backdrop Blur (HUD Navbar, Spec Drawers, Lightbox) */
+.hud-blur-bar {
+    background-color: var(--color-surface-glass);
+    backdrop-filter: blur(var(--blur-hud)) saturate(140%);
+    -webkit-backdrop-filter: blur(var(--blur-hud)) saturate(140%);
+}
+
+.optical-blur-panel {
+    background-color: var(--color-surface-modal);
+    backdrop-filter: blur(var(--blur-modal)) saturate(130%);
+    -webkit-backdrop-filter: blur(var(--blur-modal)) saturate(130%);
+}
+
+/* Framer Motion Physical Controls & Buttons (All 8 States, No transition: all) */
+.btn-technical-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    min-height: 48px;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--color-accent);
+    color: var(--color-accent-ink);
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    white-space: nowrap;
+    border: 1px solid var(--color-accent);
+    border-radius: 0;
+    cursor: pointer;
+    transition:
+        transform 0.28s var(--ease-framer-spring),
+        background-color 0.2s var(--ease-out-quart),
+        border-color 0.2s var(--ease-out-quart),
+        opacity 0.2s var(--ease-out-quart);
+}
+
+.btn-technical-primary:hover {
+    background-color: var(--color-accent-hover);
+    border-color: var(--color-accent-hover);
+    transform: translateY(-2px);
+}
+
+.btn-technical-primary:active {
+    transform: translateY(0) scale(0.985);
+}
+
+.btn-technical-primary:disabled,
+.btn-technical-primary[aria-disabled='true'] {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-technical-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    min-height: 48px;
+    padding: 0.75rem 1.5rem;
+    background-color: transparent;
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 0.9375rem;
+    white-space: nowrap;
+    border: 1px solid var(--color-hairline);
+    border-radius: 0;
+    cursor: pointer;
+    transition:
+        transform 0.28s var(--ease-framer-spring),
+        background-color 0.2s var(--ease-out-quart),
+        border-color 0.2s var(--ease-out-quart),
+        color 0.2s var(--ease-out-quart);
+}
+
+.btn-technical-outline:hover {
+    border-color: var(--color-accent);
+    background-color: var(--color-accent-subtle);
+    color: var(--color-ink);
+    transform: translateY(-2px);
+}
+
+.btn-technical-outline:active {
+    transform: translateY(0) scale(0.985);
+}
+
+/* Form Controls (Hallmark Gate 39a & 39b: constant 1px border, 48px height) */
+.input-technical {
+    width: 100%;
+    min-height: 48px;
+    padding: 0.75rem 1rem;
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    border: 1px solid var(--color-hairline);
+    border-radius: 0;
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    transition:
+        border-color 0.2s var(--ease-out-quart),
+        background-color 0.2s var(--ease-out-quart);
+}
+
+.input-technical:hover {
+    border-color: var(--color-ink-muted);
+}
+
+.input-technical:focus {
+    border-color: var(--color-accent);
+    background-color: var(--color-surface);
+}
+
+/* 3D Interactive CAD/CNC Stage & Tilt Mechanics */
+.stage-3d-perspective {
+    perspective: 1400px;
+    transform-style: preserve-3d;
+}
+
+.stage-3d-card {
+    transform-style: preserve-3d;
+    will-change: transform;
+    transition: transform 0.18s var(--ease-out-quart);
+}
+
+[data-tilt-3d] {
+    position: relative;
+    transform-style: preserve-3d;
+    will-change: transform;
+    transition:
+        transform 0.45s var(--ease-framer-out),
+        border-color 0.25s var(--ease-out-quart);
+}
+
+.tilt-glare {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    z-index: 10;
+    transition: opacity 0.3s var(--ease-out-quart);
+}
+
+/* Image Frame & Optical Focus Reveal (Framer Motion Style) */
+.industrial-image-frame {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--color-surface);
+}
+
+.industrial-image-frame img {
+    transition:
+        transform 0.7s var(--ease-framer-out),
+        filter 0.55s var(--ease-framer-out);
+}
+
+[data-tilt-3d]:hover .industrial-image-frame img {
+    transform: scale(1.045);
+}
+
+/* Native CSS Scroll-Driven Entry Effects with Feature Detection (modern-web-guidance: scroll-entry-exit-effects) */
+@media (prefers-reduced-motion: no-preference) {
+    @supports ((animation-timeline: view()) and (animation-range: entry)) {
+        @keyframes technical-scroll-entry {
+            from {
+                opacity: 0.25;
+                transform: translateY(22px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .css-scroll-reveal {
+            animation: technical-scroll-entry auto var(--ease-framer-out) both;
+            animation-timeline: view(block);
+            animation-range: entry 5% cover 24%;
+        }
+    }
+}
+
+/*Rotating Vernier Calibration Ring */
+@keyframes vernier-rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.vernier-ring-spin {
+    animation: vernier-rotate 36s linear infinite;
+    @media (prefers-reduced-motion: reduce) {
+        animation: none;
+    }
+}
+
+.vernier-ring-spin:hover,
+.vernier-ring-spin:focus-within {
+    animation-play-state: paused;
+}
+
+/* Responsive Data Table with Container Queries & Sticky Headers (modern-web-guidance: responsive-table) */
+.table-wrapper {
+    overflow: auto;
+    max-inline-size: 100%;
+    container-type: inline-size;
+    border: 1px solid var(--color-hairline);
+    background-color: var(--color-surface);
+}
+
+.table-wrapper table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.table-wrapper thead {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: 2;
+    background-color: var(--color-surface-elevated);
+}
+
+.table-wrapper tbody th {
+    position: sticky;
+    inset-inline-start: 0;
+    z-index: 1;
+    background-color: var(--color-surface);
+}
+
+@container (width < 600px) {
+    .table-wrapper table,
+    .table-wrapper thead,
+    .table-wrapper tbody,
+    .table-wrapper tr,
+    .table-wrapper th,
+    .table-wrapper td {
+        display: block;
+    }
+
+    .table-wrapper thead {
+        display: none;
+    }
+
+    .table-wrapper tr {
+        margin-block-end: 1rem;
+        border-bottom: 1px solid var(--color-hairline);
+        padding: 0.75rem;
+    }
+
+    .table-wrapper tbody th {
+        position: sticky;
+        inset-block-start: 0;
+        z-index: 2;
+        background-color: var(--color-surface-elevated);
+        padding: 0.5rem 0.75rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .table-wrapper td {
+        padding: 0.375rem 0.75rem;
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+    }
+
+    .table-wrapper td::before {
+        content: attr(data-label) ': ';
+        color: var(--color-ink-muted);
+        font-weight: 500;
+    }
+}
+
+/* Fallback for No-WebGL or Reduced Motion (PRD Addendum v1.1 & Hallmark Gate 27, 62) */
+html.no-webgl .stage-3d-card,
+html.reduced-motion .stage-3d-card,
+html.no-webgl [data-tilt-3d],
+html.reduced-motion [data-tilt-3d] {
+    transform: none !important;
+    transition: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .btn-technical-primary,
+    .btn-technical-outline,
+    .input-technical,
+    .stage-3d-card,
+    [data-tilt-3d],
+    .industrial-image-frame img {
+        transition: none !important;
+        animation: none !important;
+        transform: none !important;
+    }
+}
