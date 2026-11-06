@@ -1,5 +1,5 @@
-/* Hallmark · v2.0.0 · theme: custom · idea: "Swiss precision CNC metrology datasheet with interactive 3D CAD component stage" · vibe: "anodized steel, brushed brass, micron blueprint" · posture: dark/grotesk-heavy/warm · axes: dark/grotesk-heavy/warm · hero: Stage · nav: edge-aligned technical bar · footer: blueprint specification mast · job: enquire (RFQ) */
-/* Hallmark · pre-emit critique: P5 H5 E5 S5 R5 V5 · cut decorative badges and multi-color headings to keep austere Swiss technical precision */
+/* Hallmark · v2.0.0 · theme: custom · idea: "Swiss precision CNC metrology datasheet with choreographed 3D container scroll and scrollytelling timeline" · vibe: "obsidian machined steel, champagne brushed brass, blueprint field manual" · posture: dark/grotesk-heavy/warm · axes: dark/grotesk-heavy/warm · hero: Stage · nav: edge-aligned HUD bar with scroll progress · footer: blueprint specification mast · job: enquire (RFQ) */
+/* Hallmark · pre-emit critique: P5 H5 E5 S5 R5 V5 · stripped rounded SaaS frames from 21st.dev ContainerScroll to enforce razor-sharp architectural datasheet geometry */
 /* Hallmark · waive 64 · technical SKU codes, micron tolerances (±0.005 mm), and machine axis coordinates use --font-mono · precision manufacturing specifications require tabular monospace alignment */
 
 @import 'tailwindcss';
@@ -10,23 +10,25 @@
 @source '../**/*.js';
 
 :root {
-    /* Hallmark Color Tokens — Swiss Technical & Industrial Editorial */
-    --color-canvas: #121316;
-    --color-surface: #181a1f;
-    --color-surface-elevated: #20232a;
-    --color-surface-glass: rgba(18, 19, 22, 0.84);
-    --color-surface-modal: rgba(24, 26, 31, 0.92);
-    --color-ink: #f4f1ea;
-    --color-ink-secondary: #c8c4bc;
-    --color-ink-muted: #9499a6;
-    --color-accent: #c5a059;
-    --color-accent-hover: #d4b26f;
-    --color-accent-subtle: rgba(197, 160, 89, 0.14);
-    --color-accent-ink: #121316;
-    --color-hairline: rgba(244, 241, 234, 0.09);
-    --color-hairline-strong: rgba(197, 160, 89, 0.35);
+    /* Hallmark & 21st.dev Hybrid Color Tokens — Swiss Industrial Editorial */
+    --color-canvas: #0b0c0e;
+    --color-surface: #121418;
+    --color-surface-elevated: #181b21;
+    --color-surface-glass: rgba(11, 12, 14, 0.86);
+    --color-surface-modal: rgba(18, 20, 24, 0.94);
+    --color-ink: #f5f2eb;
+    --color-ink-secondary: #c9c5ba;
+    --color-ink-muted: #8e94a2;
+    --color-accent: #c8a45d;
+    --color-accent-hover: #d8b774;
+    --color-accent-subtle: rgba(200, 164, 93, 0.12);
+    --color-accent-ink: #0b0c0e;
+    --color-blueprint: rgba(45, 90, 136, 0.22);
+    --color-hairline: rgba(245, 242, 235, 0.085);
+    --color-hairline-strong: rgba(200, 164, 93, 0.38);
     --color-status-ok: #4d9e6d;
     --color-danger: #d9534f;
+    --color-shadow-stage: rgba(0, 0, 0, 0.58);
 
     /* Typography Tokens */
     --font-display: 'Space Grotesk', sans-serif;
@@ -39,7 +41,7 @@
     --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
 
     /* Optical & Relevant Blur Tokens */
-    --blur-hud: 14px;
+    --blur-hud: 16px;
     --blur-modal: 12px;
     --blur-card: 8px;
 
@@ -49,8 +51,7 @@
 }
 
 @layer base {
-    html,
-    body {
+    html {
         overflow-x: clip;
         width: 100%;
         background-color: var(--color-canvas);
@@ -62,6 +63,14 @@
         -moz-osx-font-smoothing: grayscale;
         caret-color: var(--color-accent);
         scrollbar-color: var(--color-accent) var(--color-canvas);
+        timeline-scope: --tl-cap-1, --tl-cap-2, --tl-cap-3, --tl-cap-4;
+    }
+
+    body {
+        overflow-x: clip;
+        width: 100%;
+        background-color: var(--color-canvas);
+        color: var(--color-ink);
     }
 
     ::selection {
@@ -112,7 +121,7 @@
     padding-inline: clamp(1.25rem, 4vw, 4rem);
 }
 
-/* Swiss Technical Hairline Grid Utilities */
+/* Swiss Technical Hairline & Architectural Blueprint Grid */
 .hairline-border {
     border-color: var(--color-hairline);
 }
@@ -120,8 +129,49 @@
 .blueprint-grid-bg {
     background-image:
         linear-gradient(to right, var(--color-hairline) 1px, transparent 1px),
-        linear-gradient(to bottom, var(--color-hairline) 1px, transparent 1px);
-    background-size: 48px 48px;
+        linear-gradient(to bottom, var(--color-hairline) 1px, transparent 1px),
+        linear-gradient(to right, var(--color-blueprint) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--color-blueprint) 1px, transparent 1px);
+    background-size:
+        48px 48px,
+        48px 48px,
+        240px 240px,
+        240px 240px;
+}
+
+.blueprint-subgrid-bg {
+    background-image: radial-gradient(var(--color-hairline-strong) 1px, transparent 1px);
+    background-size: 24px 24px;
+}
+
+/* Architectural Corner Crosshair Accents */
+.corner-crosshair {
+    position: relative;
+}
+
+.corner-crosshair::before,
+.corner-crosshair::after {
+    content: '';
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border-color: var(--color-accent);
+    pointer-events: none;
+    z-index: 15;
+}
+
+.corner-crosshair::before {
+    top: -1px;
+    left: -1px;
+    border-top: 1.5px solid var(--color-accent);
+    border-left: 1.5px solid var(--color-accent);
+}
+
+.corner-crosshair::after {
+    bottom: -1px;
+    right: -1px;
+    border-bottom: 1.5px solid var(--color-accent);
+    border-right: 1.5px solid var(--color-accent);
 }
 
 /* Relevant Optical Backdrop Blur (HUD Navbar, Spec Drawers, Lightbox) */
@@ -129,12 +179,156 @@
     background-color: var(--color-surface-glass);
     backdrop-filter: blur(var(--blur-hud)) saturate(140%);
     -webkit-backdrop-filter: blur(var(--blur-hud)) saturate(140%);
+    transition:
+        background-color 0.3s var(--ease-out-quart),
+        border-color 0.3s var(--ease-out-quart);
+}
+
+.hud-blur-bar.is-scrolled {
+    background-color: var(--color-surface-modal);
+    border-bottom-color: var(--color-hairline-strong);
 }
 
 .optical-blur-panel {
     background-color: var(--color-surface-modal);
     backdrop-filter: blur(var(--blur-modal)) saturate(130%);
     -webkit-backdrop-filter: blur(var(--blur-modal)) saturate(130%);
+}
+
+/* 1. Native CSS Scroll-Driven Progress Indicator (modern-web-guidance: scroll-progress-indicator) */
+#scroll-progress-bar {
+    position: fixed;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-accent);
+    transform-origin: 0 50%;
+    transform: scaleX(0);
+    z-index: 60;
+    pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: scroll()) {
+        @keyframes grow-scroll-progress {
+            from {
+                transform: scaleX(0);
+            }
+            to {
+                transform: scaleX(1);
+            }
+        }
+
+        #scroll-progress-bar {
+            animation: grow-scroll-progress auto linear;
+            animation-timeline: scroll(root block);
+        }
+    }
+}
+
+/* 2. 21st.dev Container Scroll 3D Perspective Stage ([data-container-scroll]) */
+.container-scroll-perspective {
+    perspective: 1200px;
+    transform-style: preserve-3d;
+}
+
+.container-scroll-card {
+    transform-style: preserve-3d;
+    will-change: transform;
+    box-shadow: 0 28px 60px -15px var(--color-shadow-stage);
+    transition: border-color 0.3s var(--ease-out-quart);
+}
+
+/* 3. Scroll-Linked Vertical Timeline Beam (21st.dev #1074 Adapted) */
+.timeline-beam-track {
+    position: relative;
+    width: 2px;
+    background-color: var(--color-hairline);
+    overflow: hidden;
+}
+
+.timeline-beam-fill {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-accent);
+    transform-origin: 50% 0%;
+    transform: scaleY(0);
+    will-change: transform;
+}
+
+.timeline-node-square {
+    width: 1.75rem;
+    height: 1.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-hairline-strong);
+    background-color: var(--color-canvas);
+    color: var(--color-ink-muted);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    transition:
+        background-color 0.35s var(--ease-framer-out),
+        color 0.35s var(--ease-framer-out),
+        border-color 0.35s var(--ease-framer-out),
+        transform 0.35s var(--ease-framer-spring);
+}
+
+.timeline-node-square.is-active {
+    background-color: var(--color-accent);
+    color: var(--color-accent-ink);
+    border-color: var(--color-accent);
+    transform: scale(1.08);
+}
+
+/* 4. Native CSS Scroll-Driven Entry & Exit Effects (modern-web-guidance: scroll-entry-exit-effects) */
+@media (prefers-reduced-motion: no-preference) {
+    @supports ((animation-timeline: view()) and (animation-range: entry)) {
+        @keyframes editorial-scroll-entry {
+            from {
+                opacity: 0.15;
+                transform: translateY(28px) scale(0.985);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .css-scroll-entry {
+            animation: editorial-scroll-entry auto var(--ease-framer-out) both;
+            animation-timeline: view(block);
+            animation-range: entry 4% cover 22%;
+        }
+    }
+}
+
+/* 5. Kinetic Scroll Velocity Marquee Ribbon */
+.velocity-marquee-track {
+    display: flex;
+    width: max-content;
+    will-change: transform;
+    animation: marquee-scroll 38s linear infinite;
+    @media (prefers-reduced-motion: reduce) {
+        animation: none;
+    }
+}
+
+.velocity-marquee-track:hover,
+.velocity-marquee-track:focus-within {
+    animation-play-state: paused;
+}
+
+@keyframes marquee-scroll {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+    to {
+        transform: translate3d(-50%, 0, 0);
+    }
 }
 
 /* Framer Motion Physical Controls & Buttons (All 8 States, No transition: all) */
@@ -267,7 +461,7 @@
     transition: opacity 0.3s var(--ease-out-quart);
 }
 
-/* Image Frame & Optical Focus Reveal (Framer Motion Style) */
+/* Image Frame & Optical Curtain Reveal */
 .industrial-image-frame {
     position: relative;
     overflow: hidden;
@@ -276,37 +470,15 @@
 
 .industrial-image-frame img {
     transition:
-        transform 0.7s var(--ease-framer-out),
+        transform 0.75s var(--ease-framer-out),
         filter 0.55s var(--ease-framer-out);
 }
 
 [data-tilt-3d]:hover .industrial-image-frame img {
-    transform: scale(1.045);
+    transform: scale(1.05);
 }
 
-/* Native CSS Scroll-Driven Entry Effects with Feature Detection (modern-web-guidance: scroll-entry-exit-effects) */
-@media (prefers-reduced-motion: no-preference) {
-    @supports ((animation-timeline: view()) and (animation-range: entry)) {
-        @keyframes technical-scroll-entry {
-            from {
-                opacity: 0.25;
-                transform: translateY(22px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .css-scroll-reveal {
-            animation: technical-scroll-entry auto var(--ease-framer-out) both;
-            animation-timeline: view(block);
-            animation-range: entry 5% cover 24%;
-        }
-    }
-}
-
-/*Rotating Vernier Calibration Ring */
+/* Rotating Vernier Calibration Ring */
 @keyframes vernier-rotate {
     from {
         transform: rotate(0deg);
@@ -400,11 +572,18 @@
     }
 }
 
+/* Content Visibility Optimization for Heavy Offscreen Sections */
+.defer-section {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 640px;
+}
+
 /* Fallback for No-WebGL or Reduced Motion (PRD Addendum v1.1 & Hallmark Gate 27, 62) */
 html.no-webgl .stage-3d-card,
 html.reduced-motion .stage-3d-card,
 html.no-webgl [data-tilt-3d],
-html.reduced-motion [data-tilt-3d] {
+html.reduced-motion [data-tilt-3d],
+html.reduced-motion .container-scroll-card {
     transform: none !important;
     transition: none !important;
 }
@@ -414,8 +593,11 @@ html.reduced-motion [data-tilt-3d] {
     .btn-technical-outline,
     .input-technical,
     .stage-3d-card,
+    .container-scroll-card,
     [data-tilt-3d],
-    .industrial-image-frame img {
+    .industrial-image-frame img,
+    .timeline-beam-fill,
+    .timeline-node-square {
         transition: none !important;
         animation: none !important;
         transform: none !important;

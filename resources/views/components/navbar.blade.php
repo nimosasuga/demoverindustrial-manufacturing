@@ -1,21 +1,27 @@
 <header
+    id="site-hud-header"
     x-data="{ mobileOpen: false }"
     class="sticky top-0 z-40 w-full border-b border-[var(--color-hairline)] hud-blur-bar"
 >
     <div class="swiss-container">
         <div class="flex items-center justify-between h-[4.5rem] gap-4">
-            <!-- Brand Wordmark -->
+            <!-- Brand Wordmark + Architectural Crosshair Monogram -->
             <a href="{{ route('home') }}" class="flex items-center gap-3 group shrink-0">
-                <span class="w-9 h-9 flex items-center justify-center border border-[var(--color-accent)] bg-[var(--color-surface)] text-[var(--color-accent)] font-mono font-semibold text-sm">
+                <span class="corner-crosshair w-9 h-9 flex items-center justify-center border border-[var(--color-hairline-strong)] bg-[var(--color-surface)] text-[var(--color-accent)] font-mono font-semibold text-xs">
                     PM
                 </span>
-                <span class="font-display font-bold text-lg tracking-tight text-[var(--color-ink)] whitespace-nowrap">
-                    {{ config('site.short_name', 'PRESISI METALINDO') }}
-                </span>
+                <div class="flex flex-col">
+                    <span class="font-display font-bold text-base sm:text-lg tracking-tight text-[var(--color-ink)] leading-none whitespace-nowrap">
+                        {{ config('site.short_name', 'PRESISI METALINDO') }}
+                    </span>
+                    <span class="font-mono text-[10px] text-[var(--color-ink-muted)] mt-1 hidden sm:inline-block">
+                        CNC 5-AXIS &amp; METROLOGY LAB
+                    </span>
+                </div>
             </a>
 
             <!-- Desktop Navigation (Sentence case, untracked per Hallmark Gate 67 & 49a) -->
-            <nav aria-label="Navigasi Utama" class="hidden lg:flex items-center divide-x divide-[var(--color-hairline)] border-x border-[var(--color-hairline)]">
+            <nav aria-label="Navigasi Utama" class="hidden lg:flex items-center divide-x divide-[var(--color-hairline)] border-x border-[var(--color-hairline)] bg-[var(--color-canvas)]/40">
                 @php
                     $navItems = [
                         ['label' => 'Beranda', 'route' => 'home'],
@@ -34,21 +40,29 @@
                     @endphp
                     <a
                         href="{{ route($item['route']) }}"
-                        class="px-4 py-2.5 text-sm font-medium whitespace-nowrap transition-colors duration-200 {{ $isActive ? 'text-[var(--color-accent)] bg-[var(--color-surface-elevated)]' : 'text-[var(--color-ink-secondary)] hover:text-[var(--color-ink)] hover:bg-[var(--color-surface)]' }}"
+                        class="relative px-4 py-2.5 text-sm font-medium whitespace-nowrap transition-colors duration-200 {{ $isActive ? 'text-[var(--color-accent)] bg-[var(--color-surface-elevated)] border-b-2 border-b-[var(--color-accent)]' : 'text-[var(--color-ink-secondary)] hover:text-[var(--color-ink)] hover:bg-[var(--color-surface)]' }}"
                     >
                         {{ $item['label'] }}
                     </a>
                 @endforeach
             </nav>
 
-            <!-- Primary Action (RFQ) -->
+            <!-- Live Z-Axis Scroll Telemetry + Primary Action (RFQ) -->
             <div class="hidden sm:flex items-center gap-3 shrink-0">
+                <span
+                    id="hud-scroll-telemetry"
+                    aria-hidden="true"
+                    class="hidden xl:inline-flex items-center px-2.5 py-1.5 border border-[var(--color-hairline)] bg-[var(--color-canvas)] font-mono text-[11px] text-[var(--color-accent)] tabular-nums"
+                >
+                    Z-POS // 000%
+                </span>
+
                 <a
                     href="{{ route('rfq') }}"
                     data-magnetic
                     class="btn-technical-primary text-sm px-4 min-h-[44px]"
                 >
-                    <i data-lucide="file-Spreadsheet" class="w-4 h-4" aria-hidden="true"></i>
+                    <i data-lucide="file-spreadsheet" class="w-4 h-4" aria-hidden="true"></i>
                     <span>Minta Penawaran</span>
                 </a>
             </div>

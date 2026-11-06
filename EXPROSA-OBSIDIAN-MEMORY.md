@@ -919,3 +919,36 @@ updated: 2026-11-06
   - `.agent/skills/21st-dev-cli/SKILL.md` (beserta `21st-ai`, `21st-cli-use`, `21st-design-sync`, `21st-registry`, `21st-ui-build`, `21st-ui-explore`, `21st-ui-review`, `21st-video`)
   - `~/.config/21st/auth.json`
 - **Langkah berikutnya**: Sinkronisasi perubahan ke repositori GitHub `demo-industrial-manufacturing` dan melaporkan status kepada user dalam gaya Caveman.
+
+
+### 2026-11-07 — Overhaul Desain Swiss-Industrial Editorial & Choreographed Scroll Architecture (21st.dev ContainerScroll + Timeline Beam + Scrollytelling)
+- **Status**: final
+- **Area**: UI | frontend | motion | scroll | 21st-dev | hallmark | sector
+- **Keputusan**:
+  1. **Palet & Geometri Swiss-Industrial Field Manual (`resources/css/app.css`)**:
+     - Mengadaptasi tema `ChemE PM Industrial Field Manual` & `Darkmatter` dari 21st.dev ke token `:root`: Obsidian Machined Canvas (`#0B0C0E`), Warm Anodized Slate (`#121418`), Elevated Surface (`#181B21`), Champagne Brushed Brass (`#C8A45D`), Blueprint Subgrid (`rgba(45, 90, 136, 0.22)`), dan Warm Alabaster (`#F5F2EB`).
+     - Menambahkan aksen sudut presisi `.corner-crosshair` (`+` hairline brass) pada modul-modul utama tanpa melanggar aturan sudut tajam (`border-radius: 0`).
+  2. **7 Lapisan Efek Scrolling Elegan & Koreografi Gerak (`resources/js/app.js` & `resources/css/app.css`)**:
+     - **Native CSS Scroll-Driven Progress Bar (`#scroll-progress-bar`)**: Menggunakan `animation-timeline: scroll(root block)` dengan atribut wajib `aria-hidden="true"` serta fallback JS `scaleX()` otomatis dan pembacaan telemetri live `Z-POS // 000%` di HUD Navbar (`#site-hud-header`).
+     - **21st.dev 3D Container Scroll Stage (`#1081` adapted — `[data-container-scroll]`)**: Menganimasikan perspektif 3D (`rotateX(15deg) -> rotateX(0deg)`, `scale(0.94) -> scale(1)`) secara halus mengikuti scroll pengguna pada showcase kapabilitas dan panel penutup RFQ.
+     - **Pinned Scrollytelling Engineering Console (`[data-scrolly-step]`)**: Mengikat panel telemetri visual di kolom kiri (`lg:sticky lg:top-24`) yang otomatis berganti gambar, kode mesin, dan kekasaran permukaan (`Ra 0.4 µm` s/d `Ra 0.15 µm`) saat pengguna menggulir 4 kartu kapabilitas di kolom kanan.
+     - **21st.dev Scroll-Linked Vertical Timeline Laser Beam (`#1074` adapted — `[data-timeline-container]`)**: Garis laser vertikal `.timeline-beam-fill` (`scaleY(0) -> scaleY(1)`) yang menyala progresif mengikuti scroll dan mengaktifkan titik tahapan `.timeline-node-square.is-active` pada protokol 5-tahap QC SOP di halaman Beranda dan Alur Kerja.
+     - **Kinetic Specification Marquee Ribbon (`.velocity-marquee-track`)**: Pita spesifikasi berjalan mulus yang otomatis berhenti saat di-hover/fokus atau ketika `prefers-reduced-motion: reduce` aktif.
+     - **Curtain Image Reveal & Multi-Layer Parallax (`[data-reveal="curtain"]`, `[data-parallax]`, `.css-scroll-entry`)**: Transisi fokus optik (`blur(3px) -> blur(0px)`, `scale(1.08) -> scale(1)`), native `animation-timeline: view(block)` dengan `@supports ((animation-timeline: view()) and (animation-range: entry))`, serta watermark koordinat arsitektural berkecepatan paralaks berbeda.
+     - **Live Tabular Counters (`[data-counter]`)**: Animasi angka presisi (`18 Unit`, `±0.005 mm`, `100% FAI`) dengan `font-variant-numeric: tabular-nums`.
+- **Alasan**: Memenuhi instruksi user: "Ok sekarang ubah total desain web kita yang elegant dengan efect scrolling".
+- **Dampak**: Seluruh halaman Sektor 05 tampil jauh lebih berkelas, interaktif, dan sinematik saat di-scroll, tetap 100% patuh pada Hallmark (*The Floor*) dan `modern-web-guidance`.
+- **File/dokumen yang diperbarui**:
+  - `EXPROSA-OBSIDIAN-MEMORY.md`
+  - `demo-industrial-manufacturing/.21st/design.json`
+  - `demo-industrial-manufacturing/resources/css/app.css`
+  - `demo-industrial-manufacturing/resources/js/app.js`
+  - `demo-industrial-manufacturing/resources/views/layouts/app.blade.php`
+  - `demo-industrial-manufacturing/resources/views/components/navbar.blade.php`
+  - `demo-industrial-manufacturing/resources/views/pages/home.blade.php`
+  - `demo-industrial-manufacturing/resources/views/pages/workflow.blade.php`
+  - `demo-industrial-manufacturing/resources/views/pages/products.blade.php`
+  - `demo-industrial-manufacturing/resources/views/pages/facilities.blade.php`
+  - `demo-industrial-manufacturing/resources/views/pages/portfolio.blade.php`
+  - `demo-industrial-manufacturing/resources/views/pages/about.blade.php`
+- **Langkah berikutnya**: Verifikasi build Vite, pengujian PHPUnit, sinkronisasi GitHub, dan pelaporan ke user.

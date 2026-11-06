@@ -38,18 +38,21 @@
 
     <noscript>
         <style>
-            [data-reveal], .stage-3d-card, [data-tilt-3d] {
+            [data-reveal], .stage-3d-card, .container-scroll-card, [data-tilt-3d] {
                 opacity: 1 !important;
                 transform: none !important;
                 filter: none !important;
             }
-            #hero-particle-canvas {
+            #hero-particle-canvas, #scroll-progress-bar {
                 display: none !important;
             }
         </style>
     </noscript>
 </head>
 <body class="min-h-screen flex flex-col bg-[var(--color-canvas)] text-[var(--color-ink)] selection:bg-[var(--color-accent)] selection:text-[var(--color-accent-ink)]">
+    <!-- Purely decorative scroll progress bar (modern-web-guidance: scroll-progress-indicator) -->
+    <div id="scroll-progress-bar" aria-hidden="true"></div>
+
     <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:px-4 focus:py-2 focus:bg-[var(--color-accent)] focus:text-[var(--color-accent-ink)] focus:font-semibold">
         Langsung ke konten utama
     </a>

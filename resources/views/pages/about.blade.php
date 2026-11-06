@@ -3,8 +3,16 @@
     description="Profil PT Presisi Metalindo Teknik, komitmen manajemen mutu ISO 9001:2015, perlindungan HAKI/NDA gambar kerja klien, dan FAQ pengadaan B2B."
 >
     <!-- Header -->
-    <section class="py-14 border-b border-[var(--color-hairline)] blueprint-grid-bg">
-        <div class="swiss-container">
+    <section class="py-16 border-b border-[var(--color-hairline)] blueprint-grid-bg relative overflow-hidden">
+        <div
+            data-parallax="0.14"
+            aria-hidden="true"
+            class="hidden lg:block absolute right-10 top-10 font-mono text-xs text-[var(--color-ink-muted)]/40 text-right select-none pointer-events-none"
+        >
+            <div>CORP // PT PRESISI METALINDO TEKNIK</div>
+            <div>POLICY // MUTUAL NDA PROTECTION</div>
+        </div>
+        <div class="swiss-container relative z-10">
             <div class="max-w-3xl space-y-3">
                 <div class="text-xs font-mono text-[var(--color-accent)]">
                     PROFIL KORPORAT // CIKARANG INDUSTRIAL ESTATE
@@ -20,7 +28,7 @@
     </section>
 
     <!-- Corporate Profile & NDA Protection -->
-    <section class="py-16 border-b border-[var(--color-hairline)] bg-[var(--color-canvas)]">
+    <section class="py-20 border-b border-[var(--color-hairline)] bg-[var(--color-canvas)]">
         <div class="swiss-container">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
                 <div class="lg:col-span-7 space-y-5 text-base text-[var(--color-ink-secondary)] leading-relaxed">
@@ -34,24 +42,43 @@
                         Dengan mengintegrasikan pusat pemesinan CNC 5-Axis simultan, CNC Swiss-Type Sliding Headstock Lathe, dan pemotongan Fiber Laser 6kW di bawah satu manajemen kualitas ISO 9001:2015, kami melayani pemesanan mulai dari prototipe R&amp;D (5 unit) hingga kontrak pasokan tahunan puluhan ribu unit.
                     </p>
 
-                    <div class="grid grid-cols-3 border border-[var(--color-hairline)] bg-[var(--color-surface)] divide-x divide-[var(--color-hairline)] pt-0">
+                    <div class="corner-crosshair grid grid-cols-3 border border-[var(--color-hairline)] bg-[var(--color-surface)] divide-x divide-[var(--color-hairline)] pt-0">
                         <div class="p-4">
-                            <div class="font-mono font-bold text-2xl text-[var(--color-accent)] tabular-nums">{{ $machineCount }} Unit</div>
+                            <div
+                                data-counter="{{ $machineCount }}"
+                                data-suffix=" Unit"
+                                class="font-mono font-bold text-2xl text-[var(--color-accent)] tabular-nums"
+                            >
+                                {{ $machineCount }} Unit
+                            </div>
                             <div class="text-xs text-[var(--color-ink-muted)] mt-1">Mesin Produksi &amp; QC</div>
                         </div>
                         <div class="p-4">
-                            <div class="font-mono font-bold text-2xl text-[var(--color-ink)] tabular-nums">{{ $productCount }} Lini</div>
+                            <div
+                                data-counter="{{ $productCount }}"
+                                data-suffix=" Lini"
+                                class="font-mono font-bold text-2xl text-[var(--color-ink)] tabular-nums"
+                            >
+                                {{ $productCount }} Lini
+                            </div>
                             <div class="text-xs text-[var(--color-ink-muted)] mt-1">Spesialisasi Komponen</div>
                         </div>
                         <div class="p-4">
-                            <div class="font-mono font-bold text-2xl text-[var(--color-ink)] tabular-nums">100%</div>
+                            <div
+                                data-counter="100"
+                                data-suffix="%"
+                                class="font-mono font-bold text-2xl text-[var(--color-ink)] tabular-nums"
+                            >
+                                100%
+                            </div>
                             <div class="text-xs text-[var(--color-ink-muted)] mt-1">Proteksi Dokumen NDA</div>
                         </div>
                     </div>
                 </div>
 
                 <div class="lg:col-span-5 space-y-4">
-                    <div class="border border-[var(--color-hairline-strong)] bg-[var(--color-surface)] p-6 space-y-4">
+                    <div data-tilt-3d class="corner-crosshair border border-[var(--color-hairline-strong)] bg-[var(--color-surface)] p-6 sm:p-8 space-y-4">
+                        <div class="tilt-glare" aria-hidden="true"></div>
                         <h3 class="font-display font-bold text-xl text-[var(--color-ink)]">
                             Kebijakan Kerahasiaan Gambar Kerja (NDA)
                         </h3>
@@ -72,7 +99,7 @@
     <!-- Procurement & Engineering FAQ Accordion -->
     <section
         x-data="{ openFaq: 0 }"
-        class="py-16 bg-[var(--color-surface)]"
+        class="py-20 bg-[var(--color-surface)]"
     >
         <div class="swiss-container">
             <div class="max-w-3xl pb-10">
@@ -105,7 +132,7 @@
                 ];
             @endphp
 
-            <div class="divide-y divide-[var(--color-hairline)] border border-[var(--color-hairline)] bg-[var(--color-canvas)]">
+            <div class="corner-crosshair divide-y divide-[var(--color-hairline)] border border-[var(--color-hairline)] bg-[var(--color-canvas)]">
                 @foreach ($faqs as $idx => $faq)
                     <div>
                         <button

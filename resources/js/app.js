@@ -10,8 +10,7 @@ window.Alpine = Alpine;
 
 /**
  * EXPROSA Sector 05 — Industrial & Manufacturing
- * UI/UX ProMax + Framer Motion Physics + Adaptive 3D CAD Stage + ScrollTrigger + Metallic Spark Particles
- * 100% Compliant with Hallmark (The Floor) & PRD Addendum v1.1
+ * 21st.dev ContainerScroll + Timeline Beam + Scrollytelling + Framer Motion Physics + Hallmark The Floor
  */
 const capabilities = {
     webgl: false,
@@ -59,7 +58,7 @@ function initLenis() {
 
     try {
         lenis = new Lenis({
-            duration: capabilities.isMobile ? 0.95 : 1.12,
+            duration: capabilities.isMobile ? 0.95 : 1.15,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
             orientation: 'vertical',
             smoothWheel: true,
@@ -79,7 +78,44 @@ function initLenis() {
     }
 }
 
-// 2. ADAPTIVE METALLIC SPARK & LASER DUST PARTICLES (#hero-particle-canvas)
+// 2. SCROLL PROGRESS INDICATOR FALLBACK & LIVE HUD TELEMETRY (modern-web-guidance: scroll-progress-indicator)
+function initScrollProgressAndHud() {
+    const progressBar = document.getElementById('scroll-progress-bar');
+    const hudHeader = document.getElementById('site-hud-header');
+    const hudTelemetry = document.getElementById('hud-scroll-telemetry');
+    const supportsCssScrollTimeline =
+        typeof CSS !== 'undefined' && CSS.supports && CSS.supports('animation-timeline', 'scroll()');
+
+    function updateScrollHud() {
+        const scrollable = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+        const scrolled = Math.max(0, window.scrollY);
+        const ratio = Math.min(1, Math.max(0, scrolled / scrollable));
+
+        if (progressBar && !supportsCssScrollTimeline && !capabilities.reducedMotion) {
+            progressBar.style.transform = `scaleX(${ratio.toFixed(4)})`;
+        }
+
+        if (hudHeader) {
+            if (scrolled > 24) {
+                hudHeader.classList.add('is-scrolled');
+            } else {
+                hudHeader.classList.remove('is-scrolled');
+            }
+        }
+
+        if (hudTelemetry) {
+            const pct = Math.round(ratio * 100)
+                .toString()
+                .padStart(3, '0');
+            hudTelemetry.textContent = `Z-POS // ${pct}%`;
+        }
+    }
+
+    window.addEventListener('scroll', updateScrollHud, { passive: true });
+    updateScrollHud();
+}
+
+// 3. ADAPTIVE METALLIC SPARK & LASER DUST PARTICLES (#hero-particle-canvas)
 let particleAnimId = null;
 let isParticleVisible = false;
 
@@ -98,13 +134,16 @@ function initHeroParticles() {
     let width = (canvas.width = canvas.parentElement ? canvas.parentElement.offsetWidth : window.innerWidth);
     let height = (canvas.height = canvas.parentElement ? canvas.parentElement.offsetHeight : window.innerHeight);
 
-    window.addEventListener('resize', () => {
-        if (!canvas.parentElement) return;
-        width = canvas.width = canvas.parentElement.offsetWidth;
-        height = canvas.height = canvas.parentElement.offsetHeight;
-    });
+    window.addEventListener(
+        'resize',
+        () => {
+            if (!canvas.parentElement) return;
+            width = canvas.width = canvas.parentElement.offsetWidth;
+            height = canvas.height = canvas.parentElement.offsetHeight;
+        },
+        { passive: true }
+    );
 
-    // Tiered particle count: Desktop 34, Tablet 14, Mobile 8
     const count = capabilities.isMobile ? 8 : capabilities.isTablet ? 14 : 34;
     const particles = [];
 
@@ -116,7 +155,7 @@ function initHeroParticles() {
             speedY: Math.random() * 0.45 + 0.12,
             speedX: (Math.random() - 0.5) * 0.3,
             alpha: Math.random() * 0.45 + 0.15,
-            color: i % 3 === 0 ? '197, 160, 89' : '244, 241, 234',
+            color: i % 3 === 0 ? '200, 164, 93' : '245, 242, 235',
         });
     }
 
@@ -191,7 +230,7 @@ function initHeroParticles() {
     });
 }
 
-// 3. INTERACTIVE 3D CAD / CNC COMPONENT STAGE WITH LERP PHYSICS
+// 4. INTERACTIVE 3D CAD / CNC COMPONENT STAGE WITH LERP PHYSICS
 let stageAnimId = null;
 let isStageVisible = false;
 
@@ -231,7 +270,7 @@ function initHeroStage3D() {
             if (spotlight) {
                 const pctX = (x / rect.width) * 100;
                 const pctY = (y / rect.height) * 100;
-                spotlight.style.background = `radial-gradient(circle at ${pctX}% ${pctY}%, rgba(197, 160, 89, 0.2) 0%, rgba(197, 160, 89, 0.03) 50%, transparent 75%)`;
+                spotlight.style.background = `radial-gradient(circle at ${pctX}% ${pctY}%, rgba(200, 164, 93, 0.22) 0%, rgba(200, 164, 93, 0.03) 50%, transparent 75%)`;
                 spotlight.style.opacity = '1';
             }
         });
@@ -247,7 +286,6 @@ function initHeroStage3D() {
             }
         });
     } else if (capabilities.isMobile) {
-        // Gentle ambient 3D oscillation on mobile
         gsap.to(stageCard, {
             rotateX: -3,
             rotateY: 4,
@@ -327,7 +365,116 @@ function initHeroStage3D() {
     });
 }
 
-// 4. FRAMER-PHYSICS 3D CARD TILT & TOUCH FEEDBACK ([data-tilt-3d])
+// 5. 21ST.DEV CONTAINER SCROLL 3D PERSPECTIVE ANIMATION ([data-container-scroll])
+function initContainerScroll3D() {
+    if (capabilities.reducedMotion) return;
+
+    document.querySelectorAll('[data-container-scroll]').forEach((section) => {
+        const card = section.querySelector('[data-container-scroll-card]');
+        const header = section.querySelector('[data-container-scroll-header]');
+
+        if (card) {
+            gsap.fromTo(
+                card,
+                {
+                    rotateX: capabilities.isMobile ? 8 : 15,
+                    scale: capabilities.isMobile ? 0.96 : 0.94,
+                    y: 28,
+                },
+                {
+                    scrollTrigger: {
+                        trigger: section,
+                        start: 'top 85%',
+                        end: 'top 20%',
+                        scrub: 0.6,
+                    },
+                    rotateX: 0,
+                    scale: 1,
+                    y: 0,
+                    ease: 'power2.out',
+                }
+            );
+        }
+
+        if (header) {
+            gsap.fromTo(
+                header,
+                { y: 0 },
+                {
+                    scrollTrigger: {
+                        trigger: section,
+                        start: 'top 80%',
+                        end: 'top 15%',
+                        scrub: 0.6,
+                    },
+                    y: -16,
+                    ease: 'none',
+                }
+            );
+        }
+    });
+}
+
+// 6. INTERACTIVE SCROLLYTELLING SYNCHRONIZATION ([data-scrolly-step])
+function initScrollytelling() {
+    const steps = document.querySelectorAll('[data-scrolly-step]');
+    if (!steps.length || !('IntersectionObserver' in window)) return;
+
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    const idx = parseInt(entry.target.getAttribute('data-scrolly-step') || '0', 10);
+                    window.dispatchEvent(new CustomEvent('scrolly-step-active', { detail: { index: idx } }));
+                }
+            });
+        },
+        {
+            rootMargin: '-28% 0px -45% 0px',
+            threshold: 0.05,
+        }
+    );
+
+    steps.forEach((step) => observer.observe(step));
+}
+
+// 7. 21ST.DEV SCROLL-LINKED VERTICAL TIMELINE BEAM ([data-timeline-container])
+function initTimelineBeam() {
+    if (capabilities.reducedMotion) return;
+
+    document.querySelectorAll('[data-timeline-container]').forEach((container) => {
+        const beamFill = container.querySelector('.timeline-beam-fill');
+        const nodes = container.querySelectorAll('.timeline-node-square');
+
+        if (beamFill) {
+            gsap.fromTo(
+                beamFill,
+                { scaleY: 0 },
+                {
+                    scrollTrigger: {
+                        trigger: container,
+                        start: 'top 72%',
+                        end: 'bottom 58%',
+                        scrub: 0.4,
+                    },
+                    scaleY: 1,
+                    ease: 'none',
+                }
+            );
+        }
+
+        nodes.forEach((node) => {
+            ScrollTrigger.create({
+                trigger: node,
+                start: 'top 68%',
+                onEnter: () => node.classList.add('is-active'),
+                onLeaveBack: () => node.classList.remove('is-active'),
+            });
+        });
+    });
+}
+
+// 8. FRAMER-PHYSICS 3D CARD TILT & TOUCH FEEDBACK ([data-tilt-3d])
 function init3DTilt() {
     if (capabilities.reducedMotion) return;
 
@@ -335,8 +482,8 @@ function init3DTilt() {
 
     tiltElements.forEach((el) => {
         if (capabilities.isPointer && !capabilities.isMobile) {
-            const maxAngle = parseFloat(el.getAttribute('data-tilt-max') || '6');
-            const depth = parseFloat(el.getAttribute('data-tilt-depth') || '10');
+            const maxAngle = parseFloat(el.getAttribute('data-tilt-max') || '5.5');
+            const depth = parseFloat(el.getAttribute('data-tilt-depth') || '8');
 
             el.addEventListener('mousemove', (e) => {
                 const rect = el.getBoundingClientRect();
@@ -355,7 +502,7 @@ function init3DTilt() {
                 if (glare) {
                     const pctX = (x / rect.width) * 100;
                     const pctY = (y / rect.height) * 100;
-                    glare.style.background = `radial-gradient(circle at ${pctX}% ${pctY}%, rgba(197, 160, 89, 0.14) 0%, rgba(197, 160, 89, 0.02) 48%, transparent 72%)`;
+                    glare.style.background = `radial-gradient(circle at ${pctX}% ${pctY}%, rgba(200, 164, 93, 0.14) 0%, rgba(200, 164, 93, 0.02) 48%, transparent 72%)`;
                     glare.style.opacity = '1';
                 }
             });
@@ -386,7 +533,7 @@ function init3DTilt() {
     });
 }
 
-// 5. MAGNETIC CONTROLS ([data-magnetic])
+// 9. MAGNETIC CONTROLS ([data-magnetic])
 function initMagneticButtons() {
     if (!capabilities.isPointer || capabilities.isMobile || capabilities.reducedMotion) return;
 
@@ -415,7 +562,7 @@ function initMagneticButtons() {
     });
 }
 
-// 6. FAIL-SAFE GSAP SCROLLTRIGGER SECTION & IMAGE REVEALS
+// 10. FAIL-SAFE GSAP SCROLLTRIGGER SECTION, CURTAIN IMAGE & PARALLAX CHOREOGRAPHY
 function initScrollAnimations() {
     if (capabilities.reducedMotion) return;
 
@@ -426,7 +573,7 @@ function initScrollAnimations() {
 
         gsap.fromTo(
             items,
-            { y: 24, opacity: 1 },
+            { y: 26, opacity: 1 },
             {
                 scrollTrigger: {
                     trigger: container,
@@ -435,8 +582,8 @@ function initScrollAnimations() {
                 },
                 y: 0,
                 opacity: 1,
-                duration: 0.65,
-                stagger: 0.07,
+                duration: 0.7,
+                stagger: 0.075,
                 ease: 'power3.out',
                 clearProps: 'transform,opacity',
             }
@@ -447,7 +594,7 @@ function initScrollAnimations() {
     document.querySelectorAll('[data-reveal="fade-up"]').forEach((el) => {
         gsap.fromTo(
             el,
-            { y: 22 },
+            { y: 24 },
             {
                 scrollTrigger: {
                     trigger: el,
@@ -455,21 +602,21 @@ function initScrollAnimations() {
                     toggleActions: 'play none none none',
                 },
                 y: 0,
-                duration: 0.7,
+                duration: 0.75,
                 ease: 'power3.out',
                 clearProps: 'transform',
             }
         );
     });
 
-    // Image frame optical focus & scale settle reveal
-    document.querySelectorAll('[data-reveal="image"]').forEach((imgWrapper) => {
+    // Curtain clip-path + optical focus image reveal (modern-web-guidance: motion)
+    document.querySelectorAll('[data-reveal="image"], [data-reveal="curtain"]').forEach((imgWrapper) => {
         const img = imgWrapper.querySelector('img');
         if (!img) return;
 
         gsap.fromTo(
             img,
-            { scale: 1.06, filter: 'blur(3px)' },
+            { scale: 1.08, filter: 'blur(3px)' },
             {
                 scrollTrigger: {
                     trigger: imgWrapper,
@@ -478,27 +625,54 @@ function initScrollAnimations() {
                 },
                 scale: 1,
                 filter: 'blur(0px)',
-                duration: 0.85,
+                duration: 0.9,
                 ease: 'power2.out',
                 clearProps: 'transform,filter',
             }
         );
     });
 
-    // Parallax depth layers
+    // Multi-Layer Parallax depth layers (modern-web-guidance: parallax-scroll-effects)
     document.querySelectorAll('[data-parallax]').forEach((el) => {
-        const speed = parseFloat(el.getAttribute('data-parallax') || '0.1');
-        const travel = capabilities.isMobile ? speed * 24 : speed * 65;
+        const speed = parseFloat(el.getAttribute('data-parallax') || '0.12');
+        const travel = capabilities.isMobile ? speed * 28 : speed * 80;
 
-        gsap.to(el, {
+        gsap.fromTo(
+            el,
+            { y: -travel * 0.35 },
+            {
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top bottom',
+                    end: 'bottom top',
+                    scrub: true,
+                },
+                y: travel,
+                ease: 'none',
+            }
+        );
+    });
+
+    // Tabular Numeral Precision Counters ([data-counter])
+    document.querySelectorAll('[data-counter]').forEach((counterEl) => {
+        const targetVal = parseFloat(counterEl.getAttribute('data-counter') || '0');
+        const decimals = parseInt(counterEl.getAttribute('data-decimals') || '0', 10);
+        const prefix = counterEl.getAttribute('data-prefix') || '';
+        const suffix = counterEl.getAttribute('data-suffix') || '';
+
+        const state = { val: 0 };
+        gsap.to(state, {
             scrollTrigger: {
-                trigger: el,
-                start: 'top bottom',
-                end: 'bottom top',
-                scrub: true,
+                trigger: counterEl,
+                start: 'top 92%',
+                once: true,
             },
-            y: travel,
-            ease: 'none',
+            val: targetVal,
+            duration: 1.35,
+            ease: 'power3.out',
+            onUpdate: () => {
+                counterEl.textContent = `${prefix}${state.val.toFixed(decimals)}${suffix}`;
+            },
         });
     });
 
@@ -513,8 +687,12 @@ document.addEventListener('DOMContentLoaded', () => {
     detectCapabilities();
     createIcons({ icons });
     initLenis();
+    initScrollProgressAndHud();
     initHeroParticles();
     initHeroStage3D();
+    initContainerScroll3D();
+    initScrollytelling();
+    initTimelineBeam();
     init3DTilt();
     initMagneticButtons();
     initScrollAnimations();

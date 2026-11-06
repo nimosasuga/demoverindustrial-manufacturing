@@ -3,8 +3,16 @@
     description="Studi kasus produksi komponen presisi untuk sektor Otomotif Tier-2, Otomasi Pabrik, Pengolahan Pangan, Hidrolik Alat Berat, dan Telekomunikasi."
 >
     <!-- Header -->
-    <section class="py-14 border-b border-[var(--color-hairline)] blueprint-grid-bg">
-        <div class="swiss-container">
+    <section class="py-16 border-b border-[var(--color-hairline)] blueprint-grid-bg relative overflow-hidden">
+        <div
+            data-parallax="0.15"
+            aria-hidden="true"
+            class="hidden lg:block absolute right-10 top-10 font-mono text-xs text-[var(--color-ink-muted)]/40 text-right select-none pointer-events-none"
+        >
+            <div>PORTFOLIO // OEM BATCH RECORD</div>
+            <div>INSPECTION // 100% FAI CMM</div>
+        </div>
+        <div class="swiss-container relative z-10">
             <div class="max-w-3xl space-y-3">
                 <div class="text-xs font-mono text-[var(--color-accent)]">
                     REKAM JEJAK PRODUKSI // STUDI KASUS TEKNIS
@@ -20,7 +28,7 @@
     </section>
 
     <!-- Industry Filter Bar -->
-    <section class="border-b border-[var(--color-hairline)] bg-[var(--color-surface)]">
+    <section class="sticky top-[4.5rem] z-30 border-b border-[var(--color-hairline)] hud-blur-bar">
         <div class="swiss-container py-3 flex items-center overflow-x-auto divide-x divide-[var(--color-hairline)]">
             <a
                 href="{{ route('portfolio') }}"
@@ -40,13 +48,13 @@
     </section>
 
     <!-- Portfolio Case Studies Grid -->
-    <section class="py-16 bg-[var(--color-canvas)]">
+    <section class="py-20 bg-[var(--color-canvas)]">
         <div class="swiss-container">
             <div data-reveal="stagger" class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 @foreach ($portfolios as $item)
                     <article
                         data-tilt-3d
-                        class="border border-[var(--color-hairline)] bg-[var(--color-surface)] p-6 sm:p-8 flex flex-col justify-between"
+                        class="css-scroll-entry corner-crosshair border border-[var(--color-hairline)] bg-[var(--color-surface)] p-6 sm:p-8 flex flex-col justify-between hover:border-[var(--color-accent)]"
                     >
                         <div class="tilt-glare" aria-hidden="true"></div>
                         <div>
@@ -55,7 +63,7 @@
                                 <span class="text-[var(--color-ink-muted)] tabular-nums">Selesai {{ $item->completion_year }}</span>
                             </div>
 
-                            <div class="industrial-image-frame aspect-[16/9] mb-5 border border-[var(--color-hairline)]">
+                            <div data-reveal="curtain" class="industrial-image-frame aspect-[16/9] mb-5 border border-[var(--color-hairline)]">
                                 <img
                                     src="{{ $item->image_url }}"
                                     alt="{{ $item->title }}"

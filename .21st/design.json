@@ -2,58 +2,114 @@
   "version": 1,
   "project": {
     "name": "demo-industrial-manufacturing",
-    "productType": null,
+    "productType": "B2B Precision Manufacturing & CNC Metrology Platform",
     "stack": [
+      "laravel-13",
+      "blade",
+      "alpinejs",
       "tailwind-v4",
+      "gsap-scrolltrigger",
+      "lenis",
       "vite"
     ]
   },
   "sources": {
-    "tokens": [],
-    "components": [],
+    "tokens": [
+      "resources/css/app.css"
+    ],
+    "components": [
+      "resources/views/components/navbar.blade.php",
+      "resources/views/components/footer.blade.php",
+      "resources/views/pages/home.blade.php",
+      "resources/views/pages/workflow.blade.php"
+    ],
     "assets": [],
     "instructions": [
       "AGENTS.md",
-      "CLAUDE.md"
+      "GEMINI.md"
     ]
   },
   "design": {
-    "colorMode": "unknown",
-    "colors": {},
-    "typography": {},
-    "spacing": {},
-    "radius": {},
-    "shadows": {},
-    "motion": {},
-    "density": "unknown"
+    "colorMode": "dark",
+    "colors": {
+      "canvas": "#0b0c0e",
+      "surface": "#121418",
+      "surfaceElevated": "#181b21",
+      "ink": "#f5f2eb",
+      "inkSecondary": "#c9c5ba",
+      "inkMuted": "#8e94a2",
+      "accent": "#c8a45d",
+      "blueprint": "rgba(45, 90, 136, 0.22)",
+      "hairline": "rgba(245, 242, 235, 0.085)"
+    },
+    "typography": {
+      "display": "Space Grotesk",
+      "sans": "Plus Jakarta Sans",
+      "mono": "JetBrains Mono"
+    },
+    "spacing": {
+      "containerMax": "1440px"
+    },
+    "radius": {
+      "default": "0px"
+    },
+    "shadows": {
+      "stage": "0 28px 60px -15px rgba(0, 0, 0, 0.58)"
+    },
+    "motion": {
+      "framerOut": "cubic-bezier(0.16, 1, 0.3, 1)",
+      "framerSpring": "cubic-bezier(0.22, 1, 0.36, 1)",
+      "outQuart": "cubic-bezier(0.25, 1, 0.5, 1)"
+    },
+    "density": "swiss-technical"
   },
   "components": {
-    "installed": [],
-    "preferredPrimitives": [],
-    "patterns": []
+    "installed": [
+      "21st-1081-container-scroll",
+      "21st-1074-timeline-beam",
+      "chemepm-industrial-field-manual-theme"
+    ],
+    "preferredPrimitives": [
+      "corner-crosshair",
+      "container-scroll-card",
+      "timeline-beam-track",
+      "hud-blur-bar"
+    ],
+    "patterns": [
+      "scrollytelling",
+      "scroll-progress-indicator",
+      "parallax-scroll-effects",
+      "scroll-entry-exit-effects"
+    ]
   },
   "constraints": {
-    "must": [],
-    "avoid": []
+    "must": [
+      "All colors and fonts must be declared via CSS custom properties in :root",
+      "Zero rounded-full pill badges or multi-color headings (Hallmark The Floor)",
+      "Full prefers-reduced-motion fallback and fail-safe opacity: 1 without JS"
+    ],
+    "avoid": [
+      "transition: all",
+      "Animating layout properties (width, height, top, left)",
+      "SaaS rounded card chrome or purple/neon glow blobs"
+    ]
   },
-  "decisions": [],
+  "decisions": [
+    {
+      "date": "2026-11-07",
+      "direction": "Swiss-Industrial Editorial & Choreographed Scroll Architecture (21st.dev ContainerScroll #1081 + Timeline Beam #1074 + ChemE Field Manual Theme + Scrollytelling)",
+      "rationale": "Combines obsidian machined steel (#0B0C0E) and champagne brushed brass (#C8A45D) with native CSS scroll-driven progress/entry timelines, GSAP 3D Container Scroll perspective stage, pinned Scrollytelling capability console, and scroll-linked vertical laser timeline beam."
+    }
+  ],
   "evidence": [
     {
       "fact": "project.instructions",
       "source": "AGENTS.md"
     },
     {
-      "fact": "project.instructions",
-      "source": "CLAUDE.md"
-    },
-    {
       "fact": "project.stack:tailwind-v4",
-      "source": "package.json"
-    },
-    {
-      "fact": "project.stack:vite",
       "source": "package.json"
     }
   ],
-  "generatedAt": "2026-11-06T18:58:19.415Z"
+  "generatedAt": "2026-11-06T19:40:00.000Z"
 }

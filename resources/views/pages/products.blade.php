@@ -3,8 +3,16 @@
     description="Katalog komponen CNC 5-Axis Milling, CNC Swiss Turning, fabrikasi sheet metal laser, dan pembuatan dies/jig presisi beserta spesifikasi material dan toleransi."
 >
     <!-- Header Section -->
-    <section class="py-14 border-b border-[var(--color-hairline)] blueprint-grid-bg">
-        <div class="swiss-container">
+    <section class="py-16 border-b border-[var(--color-hairline)] blueprint-grid-bg relative overflow-hidden">
+        <div
+            data-parallax="0.14"
+            aria-hidden="true"
+            class="hidden lg:block absolute right-10 top-10 font-mono text-xs text-[var(--color-ink-muted)]/40 text-right select-none pointer-events-none"
+        >
+            <div>CATALOG // OEM &amp; MAKE-TO-PRINT</div>
+            <div>CERT // MTC EN 10204 3.1</div>
+        </div>
+        <div class="swiss-container relative z-10">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
                 <div class="lg:col-span-8 space-y-3">
                     <div class="text-xs font-mono text-[var(--color-accent)]">
@@ -73,7 +81,7 @@
     <section class="py-16 bg-[var(--color-canvas)]">
         <div class="swiss-container">
             @if ($products->isEmpty())
-                <div class="border border-[var(--color-hairline)] bg-[var(--color-surface)] p-12 text-center space-y-4">
+                <div class="corner-crosshair border border-[var(--color-hairline)] bg-[var(--color-surface)] p-12 text-center space-y-4">
                     <div class="font-display font-bold text-xl text-[var(--color-ink)]">
                         Komponen dengan filter tersebut tidak ditemukan
                     </div>
@@ -89,7 +97,7 @@
                     @foreach ($products as $product)
                         <article
                             data-tilt-3d
-                            class="h-full flex flex-col justify-between border border-[var(--color-hairline)] bg-[var(--color-surface)] p-6 hover:border-[var(--color-accent)]"
+                            class="css-scroll-entry corner-crosshair h-full flex flex-col justify-between border border-[var(--color-hairline)] bg-[var(--color-surface)] p-6 hover:border-[var(--color-accent)]"
                         >
                             <div class="tilt-glare" aria-hidden="true"></div>
 
@@ -99,7 +107,7 @@
                                     <span class="text-[var(--color-ink-muted)]">{{ $product->category }}</span>
                                 </div>
 
-                                <div class="industrial-image-frame aspect-[16/10] mb-5 border border-[var(--color-hairline)]">
+                                <div data-reveal="curtain" class="industrial-image-frame aspect-[16/10] mb-5 border border-[var(--color-hairline)]">
                                     <img
                                         src="{{ $product->image_url }}"
                                         alt="{{ $product->name }}"
